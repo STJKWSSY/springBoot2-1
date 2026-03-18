@@ -19,18 +19,16 @@ public class GlobalExceptionHandler {
      * @return Result结果
      */
     @ExceptionHandler(MmdBusinessException.class)
-    public String handleArityException(){
-//        return  Result.error("MMD商业模式错误");
-        return "MMD商业模式错误";
+    public Result<Object> handleArityException(){
+        return Result.error("MMD商业模式错误",null);
     }
 
     /**
      * 拦截器错误
      */
     @ExceptionHandler(InterceptedException.class)
-    public String interceptorException(){
-//        return  Result.error("MMD商业模式错误");
-        return "拦截器错误";
+    public Result<Object> interceptorException(){
+        return Result.error("拦截器错误",null);
     }
 
 

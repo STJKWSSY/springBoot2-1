@@ -58,7 +58,7 @@ public class Result<T> {
      * error
      */
     public static  Result<Object> error(String message, Object data) {
-        return new Result<>(400, "error", data);
+        return new Result<>(400, message, data);
     }
 
 }

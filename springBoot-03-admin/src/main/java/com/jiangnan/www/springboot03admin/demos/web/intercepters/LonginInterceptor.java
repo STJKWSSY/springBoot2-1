@@ -1,7 +1,6 @@
 package com.jiangnan.www.springboot03admin.demos.web.intercepters;
 
 import com.jiangnan.www.springboot03admin.demos.web.exception.InterceptedException;
-import com.jiangnan.www.springboot03admin.demos.web.exception.MmdBusinessException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

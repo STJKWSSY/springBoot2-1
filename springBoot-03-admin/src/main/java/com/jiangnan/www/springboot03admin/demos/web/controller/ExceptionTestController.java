@@ -2,12 +2,9 @@ package com.jiangnan.www.springboot03admin.demos.web.controller;
 
 import com.jiangnan.www.springboot03admin.demos.web.exception.MmdBusinessException;
 import com.jiangnan.www.springboot03admin.demos.web.pojo.Result;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 错误处理测试类

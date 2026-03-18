@@ -1,10 +1,74 @@
 server:
   port: 8080 # 默认https
 spring:
+  redis:
+    host: 42.194.133.34
+    port: 6391
+    password: 123456
+    database: 0
+    client-type: jedis
+    jedis:
+      pool:
+        max-active: 8 #最大连接数据库连接数,设 -1 为没有限制
+        max-idle: 8 #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0 #最小等待连接中的数量,设 0 为没有限制
+
   servlet:
     multipart:
       #  最大上传文件大小
       max-file-size: 10MB
       # 上传文件大小
       max-request-size: 10MB
+  datasource:
+    url: jdbc:mysql://42.194.133.34:3306/mmd_pro?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: DMT@123#GO$
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+      aop-patterns: com.jiangNan.www.*  # 行配置指定了需要监控的 Spring Bean 的包名模式。此处表示将监控所有以 com.jiangNan.www.* 开头的包下的类。
+      filters: stat,wall     # 设置启用的功能过滤器。stat 用于 SQL 监控，wall 是一种防火墙，用来防御 SQL 注入等攻击。
+
+      stat-view-servlet: #  这部分配置了 Druid 的统计页面功能。
+        enabled: true # 开启统计页面功能。
+        login-username: admin # 账户
+        login-password: admin # 密码
+        resetEnable: false # 是否允许重置统计数据，默认为不启用
+
+      web-stat-filter: # 这部分定义了 Web 请求监控相关的配置。
+        enabled: true # 开启 Web 请求监控功能。
+        urlPattern: /* # 指定要监控的 URL 模式，这里的 /* 表示监控所有的请求
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*' # 排除某些特定类型的文件或路径，这些不会被监控。例如，JavaScript、图片文件以及指向 Druid 自身资源的请求将被忽略。
+
+      filter:
+        stat: # 进一步配置 stat 过滤器的行为
+          slow-sql-millis: 1000 # 当 SQL 执行时间超过 1000 毫秒（即 1 秒）时，被认为是慢查询
+          logSlowSql: true # 如果 SQL 被标记为慢查询，则记录这条 SQL 到日志中
+          enabled: true # 确保 stat 过滤器是开启状态
+        wall: # 对 wall 过滤器进行详细设定
+          enabled: true #  开启 wall 过滤器
+          config:
+            drop-table-allow: false # 禁止执行 DROP TABLE 语句，作为安全措施防止意外删除数据库表。
+
+mybatis:
+  mapper-locations: classpath*:com/jiangnan/www/**/mapper/*Mapper.xml # 映射文件位置
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名
+
+
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:com/jiangnan/www/**/mapper/*Mapper.xml
+  global-config:
+    banner: false     # 关闭MP3.0自带的banner
+    db-config:
+      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
+      id-type: AUTO  # AUTO(0)
+      # 默认数据库表下划线命名
+      table-underline: true
+      configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+        call-setters-on-nulls: true    # 返回类型为Map,显示null对应的字段
 
