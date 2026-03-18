@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jiangNan.www</groupId>
+    <artifactId>springBoot-01-helloword</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springBoot-01-helloword</name>
+    <description>springBoot-01-helloword</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+    </properties>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!-- 定义构建过程中的插件配置 -->
+        <plugins>
+            <!-- 配置 Maven 编译器插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId> <!-- 插件的 groupId -->
+                <artifactId>maven-compiler-plugin</artifactId> <!-- 插件的 artifactId -->
+                <version>3.8.1</version> <!-- 插件的版本号 -->
+                <configuration>
+                    <!-- 指定源代码的 Java 版本，这里是 1.8 -->
+                    <source>1.8</source>
+                    <!-- 指定生成的字节码的 Java 版本，也是 1.8 -->
+                    <target>1.8</target>
+                    <!-- 指定源代码文件的编码格式，这里是 UTF-8 -->
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 配置 Spring Boot Maven 插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId> <!-- 插件的 groupId -->
+                <artifactId>spring-boot-maven-plugin</artifactId> <!-- 插件的 artifactId -->
+                <version>${spring-boot.version}</version> <!-- 插件的版本号，从 POM 文件的 <properties> 部分获取 -->
+                <configuration>
+                    <!-- 指定应用程序的主类 标识跳过主方法不会自动运行springboot程序 -->
+                    <mainClass>com.jiangnan.www.springboot01helloword.SpringBoot01HellowordApplication</mainClass>
+                    <!-- 设置为 true，表示跳过某些目标或任务 -->
+                    <skip>true</skip>
+                    <!--不将spring-boot-configuration-processor打进包内，让其只在编码的时候有用-->
+                    <excludes>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <!-- 定义插件的执行目标和阶段 -->
+                <executions>
+                    <execution>
+                        <id>repackage</id> <!-- 执行的唯一标识符 -->
+                        <goals>
+                            <goal>repackage</goal> <!-- 指定要执行的目标，这里是 repackage -->
+                            <!-- repackage 目标的主要作用是确保生成的 JAR 或 WAR 文件是一个独立的、可执行的 Spring Boot 应用程序，
+                            包含了所有必要的依赖项和启动脚本。这样，你可以直接通过 java -jar your-app-0.0.1-SNAPSHOT.jar 命令来运行你的应用程序，
+                            而不需要额外的依赖项或复杂的启动配置。-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

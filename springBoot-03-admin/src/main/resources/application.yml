@@ -1,0 +1,10 @@
+server:
+  port: 8080 # 默认https
+spring:
+  servlet:
+    multipart:
+      #  最大上传文件大小
+      max-file-size: 10MB
+      # 上传文件大小
+      max-request-size: 10MB
+

@@ -1,0 +1,31 @@
+server:
+  port: 8080
+#  静态资源路径配置
+spring:
+  mvc:
+    #   静态资源访问前缀
+    static-path-pattern: /res/**
+    #    开启页面表单的Rest功能
+    hiddenmethod:
+      filter:
+        enabled: true
+  resources:
+    #    default:classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/ 静态资源默认文件夹
+    static-locations: classpath:/res/
+    #    false : 禁用所有静态资源规则
+    add-mappings: true
+  # Redis 配置
+  redis:
+    host: localhost
+    port: 6379
+    password:     # 密码（如果没有设置密码则留空）
+    database: 0
+    timeout: 10000ms
+    # 连接池配置
+    lettuce:
+      pool:
+        max-active: 8      # 最大连接数
+        max-wait: -1ms     # 最大阻塞等待时间 (-1 表示不阻塞)
+        max-idle: 8        # 最大空闲连接
+        min-idle: 0        # 最小空闲连接
+
