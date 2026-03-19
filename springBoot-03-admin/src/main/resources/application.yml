@@ -71,4 +71,24 @@ mybatis-plus:
       configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
         call-setters-on-nulls: true    # 返回类型为Map,显示null对应的字段
+management:
+  endpoints:
+    enabled-by-default: false #暴露所有端点信息 true -> 不暴露所有端点信息
+    web:
+      exposure:
+        include: '*'  #以web方式暴露
+  endpoint:
+    health: # health 端点提供了应用程序的健康检查信息。它可以帮助你了解应用程序及其依赖项的状态
+      show-details: always # 总是显示详细的健康检查信息。默认情况下，健康检查信息可能只显示一个简单的状态（如 "UP" 或 "DOWN"），但设置为 always 后，会显示更详细的诊断信息。
+      enabled: true # 启用 health 端点。如果设置为 false，则该端点将不可用
+    info: # info 端点提供了应用程序的信息，例如构建信息、版本号等。你可以通过在 application.properties 或 application.yml 中添加 info.* 属性来自定义这些信息
+      enabled: true #启用 info 端点。如果设置为 false，则该端点将不可用。
+    beans: # beans 端点提供了应用程序中所有 Spring Beans 的列表及其详细信息。这对于调试和理解应用程序的内部结构非常有用
+      enabled: true # 启用 beans 端点。如果设置为 false，则该端点将不可用
+    metrics: # metrics 端点提供了应用程序的各种度量指标，例如内存使用情况、系统 CPU 使用率、JVM 指标等。这些指标对于监控应用程序的性能和资源使用情况非常有用
+      enabled: true # 启用 metrics 端点。如果设置为 false，则该端点将不可用。
 
+
+#  健朗状态
+health:
+  status: true
